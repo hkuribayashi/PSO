@@ -1,22 +1,24 @@
 import math
 import random
+import numpy as np
 
 
 class Particle:
-    def __init__(self, inf_limit=-10, upper_limit=10):
+    def __init__(self, n_dimensoes=10, inf_limit=-10, upper_limit=10):
         self.v = 0
-        self.p = 0
+        self.p = np.zeros(n_dimensoes)
         self.p_best = 0
         self.evaluation = 0
-        self.evaluation_best = float('-inf')
 
         # iniciar a posicao e a velocidade:
-        self.p = random.uniform(inf_limit, upper_limit)
+        for x in self.p:
+            x = random.uniform(inf_limit, upper_limit)
         self.v = 0
+        self.evaluation_best = self.p
 
     def evaluate(self, objective_function):
         self.evaluation = objective_function(self.p)
-        if self.evaluation > self.evaluation_best:
+        if self.evaluation < self.evaluation_best:
             self.evaluation_best = self.evaluation
             self.p_best = self.p
 

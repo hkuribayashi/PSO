@@ -4,12 +4,12 @@ from Particle import Particle
 
 
 class PSO:
-    def __init__(self, objective_function, n_particles=100):
+    def __init__(self, objective_function, n_particles=100, n_dimensoes=10):
         self.g = None
         self.population = list()
         self.objective_function = objective_function
         for i in range(n_particles):
-            particle = Particle()
+            particle = Particle(n_dimensoes=n_dimensoes)
             particle.evaluate(self.objective_function)
             self.population.append(particle)
         self.g = max(self.population, key=operator.attrgetter('evaluation_best'))
